@@ -1,0 +1,103 @@
+#!/bin/sh
+unset IFS
+set -euf
+
+usage() {
+    echo "$0 [OPTIONS] <directory> [<directory> [<directory> ...]]"
+    echo ""
+    echo "-print0 Delimit file paths with null terminator"
+    echo "-h      Show usage information"
+}
+
+# Force UNIX find in case of Cygwin
+BINARY=/usr/bin/find
+
+JSON_FILE_PATTERNS='
+*.eslintrc
+*.jsfmtrc
+*.jshintrc
+*.jslintrc
+*.json
+'
+
+EXCLUSION_PATTERNS='
+.cicada
+.git
+.vscode
+build
+node_modules
+settings.json
+target
+vendor
+'
+
+PRINT='-print'
+
+main() {
+    DIRS="$*"
+
+    set --
+
+    for EXCLUSION_PATTERN in $EXCLUSION_PATTERNS; do
+        eval "set -- $* $EXCLUSION_PATTERN"
+    done
+
+    PARTS="\\( "
+
+    while [ "$#" -gt 1 ]; do
+        PARTS="${PARTS}-iname $1 -o "
+        shift
+    done
+
+    PARTS="${PARTS}-iname $1 \\) -prune -o "
+
+    set --
+
+    for JSON_FILE_PATTERN in $JSON_FILE_PATTERNS; do
+        eval "set -- $* $JSON_FILE_PATTERN"
+    done
+
+    PARTS="${PARTS}-type f \\( "
+
+    while [ "$#" -gt 1 ]; do
+        PARTS="${PARTS}-iname $1 -o "
+        shift
+    done
+
+    PARTS="${PARTS}-iname $1 \\)"
+
+    for DIR in $DIRS; do
+        eval "$BINARY $DIR $PARTS $PRINT"
+    done
+}
+
+if [ "$#" -lt 1 ]; then
+    usage
+    exit 1
+fi
+
+if [ "$1" = "-h" ]; then
+    usage
+    exit
+fi
+
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+    '-print0')
+        PRINT='-print0'
+        shift
+        ;;
+    *)
+        break
+        ;;
+    esac
+done
+
+if [ "$#" -lt 1 ]; then
+    usage
+    exit 1
+fi
+
+DIRS="$*"
+
+main "$DIRS"
