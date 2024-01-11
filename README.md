@@ -47,8 +47,16 @@ jq -r input_filename ./fruit-trailing-comma.json
 parse error: Expected another key-value pair at line 3, column 1
 ```
 
+# LICENSE
+
+BSD-2-Clause
+
 # REQUIREMENTS
 
 * GNU or BSD [findutils](https://en.wikipedia.org/wiki/Find_(Unix))
 * [jq](https://jqlang.github.io/jq/) 1.6+
 * POSIX compatible [sh](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/sh.html)
+
+# CONTRIBUTING
+
+For more information on developing kirill itself, see [DEVELOPMENT.md](DEVELOPMENT.md).
