@@ -2,7 +2,7 @@
 
 # ABOUT
 
-kirill hunts down rogue JSON's. kirill is designed to identifies JSON documents in large project directories. kirill can also feed these file paths into external linters.
+kirill hunts down rogue JSON's. kirill is designed to identify JSON documents in large project directories. kirill can also feed these file paths to external linters.
 
 # EXAMPLES
 
