@@ -57,6 +57,14 @@ BSD-2-Clause
 * [jq](https://jqlang.github.io/jq/) 1.6+
 * POSIX compatible [sh](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/sh.html)
 
+# INSTALL
+
+Add .../kirill/bin to `PATH`.
+
+# UNINSTALL
+
+Remove .../kirill/bin from `PATH`.
+
 # CONTRIBUTING
 
 For more information on developing kirill itself, see [DEVELOPMENT.md](DEVELOPMENT.md).
