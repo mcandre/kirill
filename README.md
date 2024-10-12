@@ -51,19 +51,45 @@ parse error: Expected another key-value pair at line 3, column 1
 
 BSD-2-Clause
 
-# REQUIREMENTS
+# RUNTIME REQUIREMENTS
 
 * GNU or BSD [findutils](https://en.wikipedia.org/wiki/Find_(Unix))
 * [jq](https://jqlang.github.io/jq/) 1.6+
+* [git](https://git-scm.com/) 2.46.1+
 * POSIX compatible [sh](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/sh.html)
 
 # INSTALL
 
-Add .../kirill/bin to `PATH`.
+1. Clone the project to a local directory.
+
+```console
+$ git clone https://github.com/mcandre/kirill.git ~/kirill
+```
+
+2. Add .../kirill/bin to `PATH`.
+
+~/.zshrc:
+
+```zsh
+# ...
+export PATH="$PATH:$HOME/kirill/bin"
+```
 
 # UNINSTALL
 
-Remove .../kirill/bin from `PATH`.
+1. Remove .../kirill/bin from `PATH`.
+
+~/.zshrc:
+
+```zsh
+# ...
+```
+
+2. Remove local clone directory.
+
+```console
+$ rm -rf ~/kirill
+```
 
 # CONTRIBUTING
 
