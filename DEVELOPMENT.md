@@ -15,41 +15,6 @@
 * [ASDF](https://asdf-vm.com/) 0.10 (run `asdf reshim` after provisioning)
 * [direnv](https://direnv.net/) 2
 
-# INSTALL
-
-(Adjust git forks, clone URLs, remotes, HEAD pointer, and/or local directory name as needed.)
-
-1. Clone the project to a local directory.
-
-```console
-$ git clone https://github.com/mcandre/kirill.git ~/kirill
-```
-
-2. Add .../kirill/bin to `PATH`.
-
-~/.zshrc:
-
-```zsh
-# ...
-export PATH="$PATH:$HOME/kirill/bin"
-```
-
-# UNINSTALL
-
-1. Remove .../kirill/bin from `PATH`.
-
-~/.zshrc:
-
-```zsh
-# ...
-```
-
-2. Remove local clone directory.
-
-```console
-$ rm -rf ~/kirill
-```
-
 # AUDIT
 
 ```console
