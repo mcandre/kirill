@@ -6,7 +6,7 @@
 * [jq](https://jqlang.github.io/jq/) 1.6+
 * [Python](https://www.python.org/) 3.12.1+
 * POSIX compatible [sh](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/sh.html)
-* [ShellCheck](https://www.shellcheck.net/) 0.8.0+
+* [ShellCheck](https://www.shellcheck.net/) 0.10.0+
 * [Snyk](https://snyk.io/)
 * Provision additional dev tools with `./install`
 
