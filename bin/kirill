@@ -2,7 +2,7 @@
 unset IFS
 set -euf
 
-KIRILL_VERSION='0.0.1'
+KIRILL_VERSION='0.0.2'
 
 usage() {
     echo "$0 [OPTIONS] <directory> [<directory> [<directory> ...]]"
