@@ -2,11 +2,18 @@
 unset IFS
 set -euf
 
+KIRILL_VERSION='0.0.1'
+
 usage() {
     echo "$0 [OPTIONS] <directory> [<directory> [<directory> ...]]"
     echo ""
-    echo "-print0 Delimit file paths with null terminator"
-    echo "-h      Show usage information"
+    echo "-print0\tDelimit file paths with null terminator"
+    echo "-v\tShow version info"
+    echo "-h\tShow usage menu"
+}
+
+banner() {
+    echo "kirill $KIRILL_VERSION"
 }
 
 # Force UNIX find in case of Cygwin
@@ -71,21 +78,21 @@ main() {
     done
 }
 
-if [ "$#" -lt 1 ]; then
-    usage
-    exit 1
-fi
-
-if [ "$1" = "-h" ]; then
-    usage
-    exit
-fi
-
 while [ "$#" -gt 0 ]; do
     case "$1" in
     '-print0')
         PRINT='-print0'
         shift
+        ;;
+    '-v')
+        shift
+        banner
+        exit
+        ;;
+    '-h')
+        shift
+        usage
+        exit
         ;;
     *)
         break

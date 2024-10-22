@@ -24,5 +24,11 @@ $ ./build audit
 # LINT
 
 ```console
-$ ./build [lint]
+$ ./build lint
+```
+
+# TEST
+
+```console
+$ ./build [test]
 ```

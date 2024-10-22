@@ -2,7 +2,12 @@
 unset IFS
 set -euf
 
-DEFAULT_TASK='lint'
+DEFAULT_TASK='test'
+
+test() {
+    kirill -v
+    kirill -h
+}
 
 audit() {
     snyk
