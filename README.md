@@ -47,6 +47,8 @@ jq -r input_filename ./fruit-trailing-comma.json
 parse error: Expected another key-value pair at line 3, column 1
 ```
 
+See `kirill -h` for more detail.
+
 # LICENSE
 
 BSD-2-Clause
