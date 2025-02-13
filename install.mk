@@ -6,6 +6,8 @@
 	python \
 	rust
 
+all: go python rust
+
 go:
 	go install tool
 
