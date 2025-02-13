@@ -16,5 +16,5 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
     - uses: "actions/checkout@v4"
-    - run: "echo \"${GITHUB_WORKSPACE}/bin\" >> \"$GITHUB_PATH\""
+    - run: "echo \"${GITHUB_WORKSPACE}/bin\" >>\"$GITHUB_PATH\""
     - run: "make"
