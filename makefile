@@ -3,9 +3,15 @@
 .PHONY: \
 	all \
 	audit \
+	bashate \
+	funk \
 	lint \
+	shellcheck \
+	shfmt \
+	slick \
 	snyk \
-	test
+	test \
+	unmake
 
 all: test
 
