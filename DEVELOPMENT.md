@@ -1,11 +1,11 @@
 # BUILDTIME REQUIREMENTS
 
 * [GNU](https://www.gnu.org/)/[BSD](https://en.wikipedia.org/wiki/Berkeley_Software_Distribution) [findutils](https://en.wikipedia.org/wiki/Find_(Unix))
-* [git](https://git-scm.com/) 2.46.1+
+* [git](https://git-scm.com/) 2.46.4+
 * [Go](https://go.dev/) 1.24.2+
 * [jq](https://jqlang.github.io/jq/) 1.6+
 * POSIX compatible [make](https://pubs.opengroup.org/onlinepubs/9799919799/utilities/make.html)
-* [Python](https://www.python.org/) 3.12.1+
+* [Python](https://www.python.org/) 3.13.5+
 * [Rust](https://www.rust-lang.org/) 1.87.0+
 * POSIX compatible [sh](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/sh.html)
 * [ShellCheck](https://www.shellcheck.net/) 0.10.0+
