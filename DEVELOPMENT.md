@@ -2,7 +2,7 @@
 
 * [GNU](https://www.gnu.org/)/[BSD](https://en.wikipedia.org/wiki/Berkeley_Software_Distribution) [findutils](https://en.wikipedia.org/wiki/Find_(Unix))
 * [git](https://git-scm.com/) 2.46.4+
-* [Go](https://go.dev/) 1.24.2+
+* [Go](https://go.dev/) 1.24.5+
 * [jq](https://jqlang.github.io/jq/) 1.6+
 * POSIX compatible [make](https://pubs.opengroup.org/onlinepubs/9799919799/utilities/make.html)
 * [Python](https://www.python.org/) 3.13.5+
