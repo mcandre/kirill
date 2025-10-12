@@ -5,6 +5,7 @@
 	audit \
 	bashate \
 	funk \
+	govulncheck \
 	lint \
 	shellcheck \
 	shfmt \
@@ -15,19 +16,7 @@
 
 all: test
 
-test:
-	kirill -v
-	kirill -h
-
-audit: snyk
-	snyk
-
-lint: \
-	bashate \
-	funk \
-	shellcheck \
-	shfmt \
-	slick
+audit: govulncheck snyk
 
 bashate:
 	stank -print0 -exInterp zsh . | \
@@ -35,6 +24,16 @@ bashate:
 
 funk:
 	funk .
+
+govulncheck:
+	govulncheck -scan package ./...
+
+lint: \
+	bashate \
+	funk \
+	shellcheck \
+	shfmt \
+	slick
 
 shellcheck:
 	stank -print0 -exInterp zsh . | \
@@ -51,6 +50,10 @@ slick:
 snyk:
 	snyk test --all-projects --exclude=requirements.txt
 	snyk test --command=.venv/bin/python3
+
+test:
+	kirill -v
+	kirill -h
 
 unmake:
 	unmake .
