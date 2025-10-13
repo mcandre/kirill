@@ -5,11 +5,11 @@ set -eufo pipefail
 KIRILL_VERSION='0.0.2'
 
 usage() {
-    echo "$0 [OPTIONS] <directory> [<directory> [<directory> ...]]"
-    echo ""
-    echo "-print0\tDelimit file paths with null terminator"
-    echo "-v\tShow version info"
-    echo "-h\tShow usage menu"
+    printf "$0 [OPTIONS] <directory> [<directory> [<directory> ...]]\n"
+    printf "\n"
+    printf -- "-print0\tDelimit file paths with null terminator\n"
+    printf -- "-v\tShow version info\n"
+    printf -- "-h\tShow usage menu\n"
 }
 
 banner() {
