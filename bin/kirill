@@ -5,7 +5,7 @@ set -eufo pipefail
 KIRILL_VERSION='0.0.2'
 
 usage() {
-    printf "$0 [OPTIONS] <directory> [<directory> [<directory> ...]]\n"
+    printf "Usage: %s [OPTIONS] <directory> [<directory> [<directory> ...]]\n" "$0"
     printf "\n"
     printf -- "-print0\tDelimit file paths with null terminator\n"
     printf -- "-v\tShow version info\n"
@@ -13,7 +13,7 @@ usage() {
 }
 
 banner() {
-    printf "kirill $KIRILL_VERSION\n"
+    printf "kirill %s\n" "$KIRILL_VERSION"
 }
 
 # Force UNIX find in case of Cygwin
