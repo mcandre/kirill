@@ -13,7 +13,7 @@ usage() {
 }
 
 banner() {
-    echo "kirill $KIRILL_VERSION"
+    printf "kirill $KIRILL_VERSION\n"
 }
 
 # Force UNIX find in case of Cygwin
