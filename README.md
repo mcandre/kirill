@@ -55,9 +55,9 @@ BSD-2-Clause
 
 # RUNTIME REQUIREMENTS
 
+* [bash](https://www.gnu.org/software/bash/)
 * [GNU](https://www.gnu.org/)/[BSD](https://en.wikipedia.org/wiki/Berkeley_Software_Distribution) [findutils](https://en.wikipedia.org/wiki/Find_(Unix))
 * [jq](https://jqlang.github.io/jq/) 1.6+
-* POSIX compatible [sh](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/sh.html)
 
 # INSTALL
 
