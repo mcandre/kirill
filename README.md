@@ -1,53 +1,26 @@
-# kirill: a JSON document integrity checker
+# kirill: JSON Schema validator
 
 # ABOUT
 
-kirill hunts down rogue JSON's. kirill is designed to identify JSON documents in large project directories. kirill can also feed these file paths to external linters.
+kirill scans projects for degenerate JSON files.
 
 # EXAMPLES
 
 ```console
 $ cd examples
 
-$ kirill .
-./grocer-missing-document-envelope.json
-./fruit-unquoted-key.json
-./fruit.json
-./.jsfmtrc
-./grocer.json
-./.eslintrc
-./.jshintrc
-./fruit-with-comment.json
-./fruit-missing-end-brace.json
-./.jslintrc
-./fruit-trailing-comma.json
+$ kirill --basic .
+error: fruit-missing-end-brace.json: EOF while parsing an object at line 3 column 0
+error: fruit-trailing-comma.json: trailing comma at line 3 column 1
+error: fruit-unquoted-key.json: key must be a string at line 2 column 5
+error: fruit-with-comment.json: expected value at line 1 column 1
+error: settings.json: expected value at line 1 column 1
 
-$ kirill -print0 . | xargs -0 -n 1 -t jq -r input_filename
-jq -r input_filename ./grocer-missing-document-envelope.json
-./grocer-missing-document-envelope.json
-jq -r input_filename ./fruit-unquoted-key.json
-parse error: Invalid numeric literal at line 2, column 11
-jq -r input_filename ./fruit.json
-./fruit.json
-jq -r input_filename ./.jsfmtrc
-./.jsfmtrc
-jq -r input_filename ./grocer.json
-./grocer.json
-jq -r input_filename ./.eslintrc
-./.eslintrc
-jq -r input_filename ./.jshintrc
-./.jshintrc
-jq -r input_filename ./fruit-with-comment.json
-parse error: Invalid numeric literal at line 1, column 3
-jq -r input_filename ./fruit-missing-end-brace.json
-parse error: Unfinished JSON term at EOF at line 3, column 0
-jq -r input_filename ./.jslintrc
-./.jslintrc
-jq -r input_filename ./fruit-trailing-comma.json
-parse error: Expected another key-value pair at line 3, column 1
+$ kirill --schema species.json zoo
+error: zoo/bad-bear.json: Missing required property 'species'
 ```
 
-See `kirill -h` for more detail.
+See `kirill -h` for more options.
 
 # LICENSE
 
@@ -55,13 +28,11 @@ BSD-2-Clause
 
 # RUNTIME REQUIREMENTS
 
-* [bash](https://www.gnu.org/software/bash/) 4+
-* [GNU](https://www.gnu.org/)/[BSD](https://en.wikipedia.org/wiki/Berkeley_Software_Distribution) [findutils](https://en.wikipedia.org/wiki/Find_(Unix))
+(None)
+
+## Recommended
+
 * [jq](https://jqlang.github.io/jq/) 1.6+
-
-# INSTALL
-
-For more information on installing or uninstalling kirill, see [INSTALL.md](INSTALL.md).
 
 # CONTRIBUTING
 

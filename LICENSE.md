@@ -1,4 +1,4 @@
-Copyright (c) 2024, Andrew Pennebaker
+Copyright (c) 2025, Andrew Pennebaker
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
