@@ -99,7 +99,9 @@ fn rustfmt() {
 
 /// Run tests
 fn test() {
-    tinyrick_extras::unit_test();
+    install();
+    tinyrick::exec!("kirill", &["-v"]);
+    tinyrick::exec!("kirill", &["-h"]);
 }
 
 /// Uninstall artifacts
