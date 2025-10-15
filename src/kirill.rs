@@ -18,7 +18,6 @@ fn main() {
 
     let mut opts: getopts::Options = getopts::Options::new();
     opts.optflag("l", "list", "list JSON files");
-    opts.optflag("b", "basic", "validate files against basic JSON syntax");
     opts.optopt(
         "s",
         "schema",
@@ -48,12 +47,7 @@ fn main() {
         die!(usage);
     }
 
-    let validate_basic: bool = optmatches.opt_present("b");
     let rest_args = optmatches.free;
-
-    if !list_documents && !validate_basic && !validate_schema {
-        die!(usage);
-    }
 
     if rest_args.is_empty() {
         die!(usage);
@@ -72,20 +66,7 @@ fn main() {
         for json_document in json_documents {
             println!("{}", json_document);
         }
-    } else if validate_basic {
-        let mut found_invalid: bool = false;
-
-        for json_document in json_documents {
-            if let Some(e) = kirill::validate_json_file_basic(&json_document) {
-                found_invalid = true;
-                eprintln!("error: {}: {}", json_document, e);
-            }
-        }
-
-        if found_invalid {
-            process::exit(1);
-        }
-    } else {
+    } else if validate_schema {
         let schema_filename = schema_option.unwrap();
 
         match kirill::load_json_schema_validator(&schema_filename) {
@@ -104,6 +85,19 @@ fn main() {
                     }
                 }
             }
+        }
+    } else {
+        let mut found_invalid: bool = false;
+
+        for json_document in json_documents {
+            if let Some(e) = kirill::validate_json_file_basic(&json_document) {
+                found_invalid = true;
+                eprintln!("error: {}: {}", json_document, e);
+            }
+        }
+
+        if found_invalid {
+            process::exit(1);
         }
     }
 }

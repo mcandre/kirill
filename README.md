@@ -9,7 +9,7 @@ kirill scans projects for degenerate JSON files.
 ```console
 $ cd examples
 
-$ kirill --basic .
+$ kirill .
 error: fruit-missing-end-brace.json: EOF while parsing an object at line 3 column 0
 error: fruit-trailing-comma.json: trailing comma at line 3 column 1
 error: fruit-unquoted-key.json: key must be a string at line 2 column 5
