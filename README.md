@@ -2,7 +2,10 @@
 
 # ABOUT
 
-kirill scans projects for degenerate JSON files.
+kirill scans projects large and small for JSON correctness:
+
+* Basic JSON syntactical validity
+* Optionally, enforce [JSON Schema](https://json-schema.org/)
 
 # EXAMPLES
 
