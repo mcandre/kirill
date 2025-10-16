@@ -1,4 +1,4 @@
-# kirill: JSON Schema validator
+# kirill: JSON validator
 
 # ABOUT
 
