@@ -5,6 +5,7 @@ extern crate json_schema_validator_core;
 extern crate lazy_static;
 extern crate regex;
 extern crate serde_json;
+extern crate serde_json5;
 extern crate walkdir;
 
 use std::fmt;
@@ -13,24 +14,58 @@ use std::path;
 use std::process;
 
 lazy_static::lazy_static! {
+    /// JSON_FILE_EXTENSIONS collects common JSON file extensions.
+    pub static ref JSON_FILE_EXTENSIONS: Vec<String> = vec![
+        // eslint
+        "eslintrc".to_string(),
+
+        // jsfmt
+        "jsfmtrc".to_string(),
+
+        // jslint
+        "jslintrc".to_string(),
+
+        // jshint
+        "jshintrc".to_string(),
+
+        // JSON
+        "json".to_string(),
+    ];
+
+    /// JSON5_FILE_EXTENSIONS collects common JSON5 file extensions.
+    pub static ref JSON5_FILE_EXTENSIONS: Vec<String> = JSON_FILE_EXTENSIONS
+        .iter()
+        .chain(
+            &[
+                // JSON5
+                "json5".to_string(),
+            ]
+        ).cloned()
+        .collect();
+
     /// DEFAULT_JSON_FILE_PATTERNS collects patterns for identifying JSON files.
     pub static ref DEFAULT_JSON_FILE_PATTERNS: regex::Regex = regex::Regex::new(
-        &[
-            // eslint
-            r".*\.eslintrc",
+        &format!(
+            "({})$",
+            JSON_FILE_EXTENSIONS
+                .iter()
+                .map(|e| format!(r".*\.{}", e))
+                .collect::<Vec<String>>()
+                .join("|")
+        )
+    )
+    .unwrap();
 
-            // jsfmt
-            r".*\.jsfmtrc",
-
-            // jslint
-            r".*\.jslintrc",
-
-            // jshint
-            r".*\.jshintrc",
-
-            // JSON
-            r".*\.json",
-        ].join("|")
+    /// DEFAULT_JSON5_FILE_PATTERNS collects patterns for identifying JSON files.
+    pub static ref DEFAULT_JSON5_FILE_PATTERNS: regex::Regex = regex::Regex::new(
+        &format!(
+            "({})$",
+            JSON5_FILE_EXTENSIONS
+                .iter()
+                .map(|e| format!(r".*\.{}", e))
+                .collect::<Vec<String>>()
+                .join("|")
+        )
     )
     .unwrap();
 
@@ -68,6 +103,7 @@ pub enum KirillError {
     UnsupportedPathError(String),
     PathRenderError(String),
     JSONParseError(serde_json::Error),
+    JSON5ParseError(serde_json5::Error),
     JSONSchemaError(String),
 }
 
@@ -79,6 +115,7 @@ impl fmt::Display for KirillError {
             KirillError::UnsupportedPathError(e) => write!(f, "{}", e),
             KirillError::PathRenderError(e) => write!(f, "{}", e),
             KirillError::JSONParseError(e) => write!(f, "{}", e),
+            KirillError::JSON5ParseError(e) => write!(f, "{}", e),
             KirillError::JSONSchemaError(e) => write!(f, "{}", e),
         }
     }
@@ -94,7 +131,10 @@ impl die::PrintExit for KirillError {
 /// find_json_documents recursively searches
 /// the given directories and/or file root paths
 /// for JSON documents.
-pub fn find_json_documents(roots: Vec<&path::Path>) -> Result<Vec<String>, KirillError> {
+pub fn find_json_documents(
+    roots: Vec<&path::Path>,
+    parse_json5: bool,
+) -> Result<Vec<String>, KirillError> {
     let mut pth_bufs = Vec::<path::PathBuf>::new();
 
     for root in roots {
@@ -146,7 +186,13 @@ pub fn find_json_documents(roots: Vec<&path::Path>) -> Result<Vec<String>, Kiril
             continue;
         }
 
-        if DEFAULT_JSON_FILE_PATTERNS.is_match(pth_abs_str) {
+        let pattern = if parse_json5 {
+            &*DEFAULT_JSON5_FILE_PATTERNS
+        } else {
+            &*DEFAULT_JSON_FILE_PATTERNS
+        };
+
+        if pattern.is_match(pth_abs_str) {
             let pth_clean_buf = clean_path::clean(pth);
             let pth_clean = pth_clean_buf.as_path();
             let pth_clean_str = pth_clean
@@ -163,8 +209,11 @@ pub fn find_json_documents(roots: Vec<&path::Path>) -> Result<Vec<String>, Kiril
 }
 
 /// find_json_documents_sorted lexicographically sorts any JSON document results.
-pub fn find_json_documents_sorted(roots: Vec<&path::Path>) -> Result<Vec<String>, KirillError> {
-    let mut json_documents = find_json_documents(roots)?;
+pub fn find_json_documents_sorted(
+    roots: Vec<&path::Path>,
+    parse_json5: bool,
+) -> Result<Vec<String>, KirillError> {
+    let mut json_documents = find_json_documents(roots, parse_json5)?;
     json_documents.sort();
     Ok(json_documents)
 }
@@ -173,7 +222,7 @@ pub fn find_json_documents_sorted(roots: Vec<&path::Path>) -> Result<Vec<String>
 ///
 /// Returns Some(error) on error.
 /// Otherwise, returns None.
-pub fn validate_json_file_basic(s: &str) -> Option<KirillError> {
+pub fn validate_json_file_basic(s: &str, parse_json5: bool) -> Option<KirillError> {
     let pth = path::Path::new(s);
 
     match fs::read_to_string(pth) {
@@ -182,9 +231,17 @@ pub fn validate_json_file_basic(s: &str) -> Option<KirillError> {
             pth.display()
         ))),
 
-        Ok(contents) => serde_json::from_str::<serde_json::Value>(&contents)
-            .map_err(KirillError::JSONParseError)
-            .err(),
+        Ok(contents) => {
+            if parse_json5 {
+                serde_json5::from_str::<serde_json::Value>(&contents)
+                    .map_err(KirillError::JSON5ParseError)
+                    .err()
+            } else {
+                serde_json::from_str::<serde_json::Value>(&contents)
+                    .map_err(KirillError::JSONParseError)
+                    .err()
+            }
+        }
     }
 }
 

@@ -4,8 +4,9 @@
 
 kirill scans projects large and small for JSON correctness:
 
-* Basic JSON syntactical validity
-* Optionally, enforce [JSON Schema](https://json-schema.org/)
+* Check for basic JSON(5) syntactical validity
+* Identify JSON(5) files recursively in large project directories
+* Verify compliance with a [JSON Schema](https://json-schema.org/)
 
 # EXAMPLES
 
@@ -21,6 +22,12 @@ error: settings.json: expected value at line 1 column 1
 
 $ kirill --schema species.json zoo
 error: zoo/bad-bear.json: Missing required property 'species'
+
+$ kirill books.json5
+error: books.json5: expected value at line 9 column 9
+
+$ kirill --json5 books.json5
+$
 ```
 
 See `kirill -h` for more options.

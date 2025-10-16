@@ -12,11 +12,12 @@ use std::process;
 /// CLI entrypoint
 fn main() {
     let brief: String = format!(
-        "Usage: {} [OPTIONS] <path> [<path> [<path> ...]]",
+        "usage: {} [OPTIONS] <path> [<path> [<path> ...]]",
         env!("CARGO_PKG_NAME")
     );
 
     let mut opts: getopts::Options = getopts::Options::new();
+    opts.optflag("5", "json5", "parse according to JSON5");
     opts.optflag("l", "list", "list JSON files");
     opts.optopt(
         "s",
@@ -39,8 +40,15 @@ fn main() {
         die!(0; format!("{} {}", env!("CARGO_PKG_NAME"), env!("CARGO_PKG_VERSION")));
     }
 
+    let parse_json5: bool = optmatches.opt_present("5");
     let list_documents: bool = optmatches.opt_present("l");
     let validate_schema: bool = optmatches.opt_present("s");
+
+    if parse_json5 && validate_schema {
+        eprintln!("error: JSON5 incompatible with JSON Schema");
+        die!(usage);
+    }
+
     let schema_option: Option<String> = optmatches.opt_str("s");
 
     if validate_schema && schema_option.is_none() {
@@ -54,7 +62,8 @@ fn main() {
     }
 
     let roots: Vec<&path::Path> = rest_args.iter().map(path::Path::new).collect();
-    let json_documents_result = kirill::find_json_documents_sorted(roots);
+
+    let json_documents_result = kirill::find_json_documents_sorted(roots, parse_json5);
 
     if let Err(e) = json_documents_result {
         die!(e);
@@ -91,7 +100,7 @@ fn main() {
         let mut found_invalid: bool = false;
 
         for json_document in json_documents {
-            if let Some(e) = kirill::validate_json_file_basic(&json_document) {
+            if let Some(e) = kirill::validate_json_file_basic(&json_document, parse_json5) {
                 found_invalid = true;
                 eprintln!("error: {}: {}", json_document, e);
             }

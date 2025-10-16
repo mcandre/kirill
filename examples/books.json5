@@ -1,0 +1,16 @@
+{
+    "books": [
+        "The Hobbit",
+        "The Fellowship of the Ring",
+        "The Two Towers",
+        "The Return of the King",
+        "The Silmarillion",
+        "Unfinished Tales of Númenor and Middle-earth",
+        // Nonfiction
+        "The History of Middle-earth",
+        "The Children of Húrin",
+        "Beren and Lúthien",
+        "The Fall of Gondolin",
+        "The Fall of Númenor",
+    ]
+}
