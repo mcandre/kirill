@@ -1,0 +1,22 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+        "genus": {
+            "type": "string"
+        },
+        "species": {
+            "type": "string"
+        },
+        "common_names": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        }
+    },
+    "required": [
+        "genus",
+        "species"
+    ]
+}

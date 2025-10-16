@@ -1,34 +1,13 @@
-#!/bin/bash
-unset IFS
-set -eufo pipefail
+#!/bin/sh
+set -e
 
-go() {
-    command go install golang.org/x/vuln/cmd/govulncheck@latest
-    command go install tool
-}
-
-python() {
-    python3 -m venv .venv
-    .venv/bin/python3 -m pip install --upgrade pip setuptools
-    .venv/bin/python3 -m pip install -r requirements.txt
-}
-
-TASKS='go python'
-
-SELECTED_TASKS="$TASKS"
-
-if [ "$#" -gt 0 ]; then
-    SELECTED_TASKS="$*"
-fi
-
-for TASK in $SELECTED_TASKS; do
-    case "$TASKS" in
-    *"$TASK"*)
-        "$TASK"
-        ;;
-    *)
-        echo "error: no such task: $TASK"
-        exit 1
-        ;;
-    esac
-done
+rustup component add \
+    clippy \
+    rustfmt
+cargo install --force \
+    cargo-audit \
+    tinyrick@0.0.15
+cargo install --force \
+    cross \
+        --git https://github.com/cross-rs/cross \
+        --rev 4e64366af6095c84fa4f54a0fa5a2ba7d9a271aa
