@@ -16,10 +16,19 @@ lazy_static::lazy_static! {
     /// DEFAULT_JSON_FILE_PATTERNS collects patterns for identifying JSON files.
     pub static ref DEFAULT_JSON_FILE_PATTERNS: regex::Regex = regex::Regex::new(
         &[
+            // eslint
             r".*\.eslintrc",
+
+            // jsfmt
             r".*\.jsfmtrc",
+
+            // jslint
             r".*\.jslintrc",
+
+            // jshint
             r".*\.jshintrc",
+
+            // JSON
             r".*\.json",
         ].join("|")
     )
@@ -28,8 +37,23 @@ lazy_static::lazy_static! {
     /// DEFAULT_EXCLUSION_FILE_PATTERNS collects patterns for directory or file paths to skip.
     pub static ref DEFAULT_EXCLUSION_FILE_PATTERNS: regex::Regex = regex::Regex::new(
         &[
+            // crit
+            ".crit",
+
+            // Python
+            ".venv",
+
+            // C/C++
             "build",
+
+            // Node.js
+            "node_modules",
+            "package-lock.json",
+
+            // .NET, Go, JVM, Rust
             "target",
+
+            // Go, Rust
             "vendor",
         ].join("|")
     )
