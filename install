@@ -6,7 +6,10 @@ rustup component add \
     rustfmt
 cargo install --force \
     cargo-audit \
-    tinyrick@0.0.15
+    cargo-cache \
+    cargo-edit \
+    crit@0.0.10 \
+    tinyrick@0.0.17
 cargo install --force \
     cross \
         --git https://github.com/cross-rs/cross \
