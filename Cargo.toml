@@ -1,7 +1,7 @@
 [package]
 name = "kirill"
 description = "JSON Schema validator"
-version = "0.0.3"
+version = "0.0.4"
 edition = "2024"
 authors = ["Andrew Pennebaker <n4jm4@pm.me>"]
 license = "BSD-2-Clause"
