@@ -7,8 +7,10 @@ extern crate regex;
 extern crate serde_json;
 extern crate walkdir;
 
+use std::fmt;
 use std::fs;
 use std::path;
+use std::process;
 
 lazy_static::lazy_static! {
     /// DEFAULT_JSON_FILE_PATTERNS collects patterns for identifying JSON files.
@@ -34,40 +36,71 @@ lazy_static::lazy_static! {
     .unwrap();
 }
 
+/// KirillError models bad computer states.
+#[derive(Debug)]
+pub enum KirillError {
+    IOError(String),
+    DirectoryTraversalError(walkdir::Error),
+    UnsupportedPathError(String),
+    PathRenderError(String),
+    JSONParseError(serde_json::Error),
+    JSONSchemaError(String),
+}
+
+impl fmt::Display for KirillError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            KirillError::IOError(e) => write!(f, "{}", e),
+            KirillError::DirectoryTraversalError(e) => write!(f, "{}", e),
+            KirillError::UnsupportedPathError(e) => write!(f, "{}", e),
+            KirillError::PathRenderError(e) => write!(f, "{}", e),
+            KirillError::JSONParseError(e) => write!(f, "{}", e),
+            KirillError::JSONSchemaError(e) => write!(f, "{}", e),
+        }
+    }
+}
+
+impl die::PrintExit for KirillError {
+    fn print_exit(&self) -> ! {
+        eprintln!("{}", self);
+        process::exit(die::DEFAULT_EXIT_CODE);
+    }
+}
+
 /// find_json_documents recursively searches
 /// the given directories and/or file root paths
 /// for JSON documents.
-pub fn find_json_documents(roots: Vec<&path::Path>) -> Result<Vec<String>, String> {
+pub fn find_json_documents(roots: Vec<&path::Path>) -> Result<Vec<String>, KirillError> {
     let mut pth_bufs = Vec::<path::PathBuf>::new();
 
     for root in roots {
-        match fs::metadata(root) {
-            Err(e) => return Err(e.to_string()),
+        let metadata = fs::metadata(root).map_err(|_| {
+            KirillError::IOError(format!(
+                "unable to query metadata for path: {}",
+                root.display()
+            ))
+        })?;
 
-            Ok(metadata) => {
-                if metadata.is_dir() {
-                    let walker = walkdir::WalkDir::new(root);
+        if metadata.is_dir() {
+            let walker = walkdir::WalkDir::new(root);
 
-                    for entry_result in walker {
-                        if let Err(e) = entry_result {
-                            return Err(e.to_string());
-                        }
+            for entry_result in walker {
+                let entry = entry_result.map_err(KirillError::DirectoryTraversalError)?;
+                let child_pth: &path::Path = entry.path();
 
-                        let entry: walkdir::DirEntry = entry_result.unwrap();
-                        let child_pth: &path::Path = entry.path();
-
-                        if child_pth.is_dir() || child_pth.is_symlink() {
-                            continue;
-                        }
-
-                        pth_bufs.push(path::PathBuf::from(child_pth));
-                    }
-                } else if metadata.is_file() {
-                    pth_bufs.push(path::PathBuf::from(root))
-                } else {
-                    return Err(format!("unknown type of path: {}", root.display()));
+                if child_pth.is_dir() || child_pth.is_symlink() {
+                    continue;
                 }
+
+                pth_bufs.push(path::PathBuf::from(child_pth));
             }
+        } else if metadata.is_file() {
+            pth_bufs.push(path::PathBuf::from(root))
+        } else {
+            return Err(KirillError::UnsupportedPathError(format!(
+                "unknown type of path: {}",
+                root.display()
+            )));
         }
     }
 
@@ -75,35 +108,30 @@ pub fn find_json_documents(roots: Vec<&path::Path>) -> Result<Vec<String>, Strin
 
     for pth_buf in pth_bufs {
         let pth = pth_buf.as_path();
+        let pth_abs = path::absolute(pth).map_err(|_| {
+            KirillError::IOError(format!("unable to resolve path: {}", pth.display()))
+        })?;
+        let pth_abs_str = pth_abs
+            .to_str()
+            .ok_or(KirillError::PathRenderError(format!(
+                "unable to process path: {}",
+                pth_abs.display()
+            )))?;
 
-        match path::absolute(pth) {
-            Err(e) => return Err(e.to_string()),
+        if DEFAULT_EXCLUSION_FILE_PATTERNS.is_match(pth_abs_str) {
+            continue;
+        }
 
-            Ok(pth_abs) => match pth_abs.to_str() {
-                None => return Err(format!("unable to process path: {}", pth_abs.display())),
-
-                Some(pth_abs_str) => {
-                    if DEFAULT_EXCLUSION_FILE_PATTERNS.is_match(pth_abs_str) {
-                        continue;
-                    }
-
-                    if DEFAULT_JSON_FILE_PATTERNS.is_match(pth_abs_str) {
-                        let pth_clean_buf = clean_path::clean(pth);
-                        let pth_clean = pth_clean_buf.as_path();
-
-                        match pth_clean.to_str() {
-                            None => {
-                                return Err(format!(
-                                    "unable to process path: {}",
-                                    pth_clean.display()
-                                ));
-                            }
-
-                            Some(pth_clean_str) => json_documents.push(pth_clean_str.to_string()),
-                        }
-                    }
-                }
-            },
+        if DEFAULT_JSON_FILE_PATTERNS.is_match(pth_abs_str) {
+            let pth_clean_buf = clean_path::clean(pth);
+            let pth_clean = pth_clean_buf.as_path();
+            let pth_clean_str = pth_clean
+                .to_str()
+                .ok_or(KirillError::PathRenderError(format!(
+                    "unable to process cleaned path: {}",
+                    pth_clean.display()
+                )))?;
+            json_documents.push(pth_clean_str.to_string())
         }
     }
 
@@ -111,56 +139,44 @@ pub fn find_json_documents(roots: Vec<&path::Path>) -> Result<Vec<String>, Strin
 }
 
 /// find_json_documents_sorted lexicographically sorts any JSON document results.
-pub fn find_json_documents_sorted(roots: Vec<&path::Path>) -> Result<Vec<String>, String> {
-    match find_json_documents(roots) {
-        Err(e) => Err(e),
-
-        Ok(mut json_documents) => {
-            json_documents.sort();
-            Ok(json_documents)
-        }
-    }
+pub fn find_json_documents_sorted(roots: Vec<&path::Path>) -> Result<Vec<String>, KirillError> {
+    let mut json_documents = find_json_documents(roots)?;
+    json_documents.sort();
+    Ok(json_documents)
 }
 
 /// validate_json_file checks file paths for basic JSON validity.
 ///
-/// Returns Some(error_message) on error.
+/// Returns Some(error) on error.
 /// Otherwise, returns None.
-pub fn validate_json_file_basic(s: &str) -> Option<String> {
+pub fn validate_json_file_basic(s: &str) -> Option<KirillError> {
     let pth = path::Path::new(s);
 
     match fs::read_to_string(pth) {
-        Err(e) => Some(e.to_string()),
+        Err(_) => Some(KirillError::IOError(format!(
+            "unable to read path: {}",
+            pth.display()
+        ))),
 
-        Ok(contents) => {
-            if let Err(e) = serde_json::from_str::<serde_json::Value>(&contents) {
-                Some(e.to_string())
-            } else {
-                None
-            }
-        }
+        Ok(contents) => serde_json::from_str::<serde_json::Value>(&contents)
+            .map_err(KirillError::JSONParseError)
+            .err(),
     }
 }
 
 pub fn load_json_schema_validator(
     schema_filename: &str,
-) -> Result<json_schema_validator_core::JsonSchemaValidator, String> {
-    match fs::read_to_string(schema_filename) {
-        Err(e) => Err(e.to_string()),
+) -> Result<json_schema_validator_core::JsonSchemaValidator, KirillError> {
+    let contents = fs::read_to_string(schema_filename)
+        .map_err(|_| KirillError::IOError(format!("unable to read file: {}", schema_filename)))?;
+    let schema = serde_json::from_str::<serde_json::Value>(&contents)
+        .map_err(KirillError::JSONParseError)?;
 
-        Ok(schema_contents) => match serde_json::from_str::<serde_json::Value>(&schema_contents) {
-            Err(e) => Err(e.to_string()),
-
-            Ok(schema) => match json_schema_validator_core::JsonSchemaValidator::new(
-                schema,
-                json_schema_validator_core::ValidationOptions::default(),
-            ) {
-                Err(e) => Err(e.message),
-
-                Ok(validator) => Ok(validator),
-            },
-        },
-    }
+    json_schema_validator_core::JsonSchemaValidator::new(
+        schema,
+        json_schema_validator_core::ValidationOptions::default(),
+    )
+    .map_err(|e| KirillError::JSONSchemaError(e.message))
 }
 
 /// validate_json_file checks file paths for basic JSON validity.
@@ -170,20 +186,20 @@ pub fn load_json_schema_validator(
 pub fn validate_json_file(
     s: &str,
     validator: &json_schema_validator_core::JsonSchemaValidator,
-) -> Vec<String> {
+) -> Result<(), Vec<KirillError>> {
     let pth = path::Path::new(s);
+    let contents = fs::read_to_string(pth).map_err(|_| {
+        vec![KirillError::IOError(format!(
+            "unable to read file: {}",
+            pth.display()
+        ))]
+    })?;
+    let value = serde_json::from_str::<serde_json::Value>(&contents)
+        .map_err(|e| vec![KirillError::JSONParseError(e)])?;
 
-    match fs::read_to_string(pth) {
-        Err(e) => vec![e.to_string()],
-
-        Ok(contents) => match serde_json::from_str::<serde_json::Value>(&contents) {
-            Err(e) => vec![e.to_string()],
-
-            Ok(v) => validator
-                .validate(&v)
-                .iter()
-                .map(|e| e.message.clone())
-                .collect(),
-        },
-    }
+    Err(validator
+        .validate(&value)
+        .iter()
+        .map(|e| KirillError::JSONSchemaError(e.message.clone()))
+        .collect::<Vec<KirillError>>())
 }

@@ -74,14 +74,15 @@ fn main() {
 
             Ok(validator) => {
                 for json_document in json_documents {
-                    let errors = kirill::validate_json_file(&json_document, &validator);
+                    let errors =
+                        kirill::validate_json_file(&json_document, &validator).unwrap_err();
 
                     if !errors.is_empty() {
                         for e in errors {
                             eprintln!("error: {}: {}", json_document, e);
                         }
 
-                        process::exit(1);
+                        process::exit(die::DEFAULT_EXIT_CODE);
                     }
                 }
             }
@@ -97,7 +98,7 @@ fn main() {
         }
 
         if found_invalid {
-            process::exit(1);
+            process::exit(die::DEFAULT_EXIT_CODE);
         }
     }
 }
