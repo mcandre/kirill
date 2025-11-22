@@ -52,3 +52,4 @@ For more information on developing kirill itself, see [DEVELOPMENT.md](DEVELOPME
 
 * [sail](https://github.com/mcandre/sail) identifies C/C++ source code
 * [stank](https://github.com/mcandre/stank) identifies shell scripts
+* [todolint](https://github.com/mcandre/todolint) identifies bugs by code comments
