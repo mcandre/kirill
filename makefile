@@ -27,7 +27,7 @@
 	clean-example \
 	clean-ports
 
-BANNER=kirill-0.0.5
+BANNER=kirill-0.0.6
 
 all: build
 
