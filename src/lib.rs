@@ -2,7 +2,6 @@
 
 extern crate clean_path;
 extern crate json_schema_validator_core;
-extern crate lazy_static;
 extern crate regex;
 extern crate serde_json;
 extern crate serde_json5;
@@ -12,88 +11,80 @@ use std::fmt;
 use std::fs;
 use std::path;
 use std::process;
+use std::sync;
 
-lazy_static::lazy_static! {
-    /// JSON_FILE_EXTENSIONS collects common JSON file extensions.
-    pub static ref JSON_FILE_EXTENSIONS: Vec<String> = vec![
+/// JSON_FILE_EXTENSIONS collects common JSON file extensions.
+pub static JSON_FILE_EXTENSIONS: sync::LazyLock<Vec<&str>> = sync::LazyLock::new(|| {
+    vec![
         // eslint
-        "eslintrc".to_string(),
+        "eslintrc", // jsfmt
+        "jsfmtrc",  // jslint
+        "jslintrc", // jshint
+        "jshintrc", // JSON
+        "json",
+    ]
+});
 
-        // jsfmt
-        "jsfmtrc".to_string(),
-
-        // jslint
-        "jslintrc".to_string(),
-
-        // jshint
-        "jshintrc".to_string(),
-
-        // JSON
-        "json".to_string(),
-    ];
-
-    /// JSON5_FILE_EXTENSIONS collects common JSON5 file extensions.
-    pub static ref JSON5_FILE_EXTENSIONS: Vec<String> = JSON_FILE_EXTENSIONS
+/// JSON5_FILE_EXTENSIONS collects common JSON5 file extensions.
+pub static JSON5_FILE_EXTENSIONS: sync::LazyLock<Vec<&str>> = sync::LazyLock::new(|| {
+    JSON_FILE_EXTENSIONS
         .iter()
-        .chain(
-            &[
-                // JSON5
-                "json5".to_string(),
-            ]
-        ).cloned()
-        .collect();
+        .chain(&[
+            // JSON5
+            "json5",
+        ])
+        .cloned()
+        .collect()
+});
 
-    /// DEFAULT_JSON_FILE_PATTERNS collects patterns for identifying JSON files.
-    pub static ref DEFAULT_JSON_FILE_PATTERNS: regex::Regex = regex::Regex::new(
-        &format!(
-            "({})$",
-            JSON_FILE_EXTENSIONS
-                .iter()
-                .map(|e| format!(r".*\.{}", e))
-                .collect::<Vec<String>>()
-                .join("|")
-        )
-    )
-    .unwrap();
+/// DEFAULT_JSON_FILE_PATTERNS collects patterns for identifying JSON files.
+pub static DEFAULT_JSON_FILE_PATTERNS: sync::LazyLock<regex::Regex> = sync::LazyLock::new(|| {
+    regex::Regex::new(&format!(
+        "({})$",
+        JSON_FILE_EXTENSIONS
+            .iter()
+            .map(|e| format!(r".*\.{}", e))
+            .collect::<Vec<String>>()
+            .join("|")
+    ))
+    .unwrap()
+});
 
-    /// DEFAULT_JSON5_FILE_PATTERNS collects patterns for identifying JSON files.
-    pub static ref DEFAULT_JSON5_FILE_PATTERNS: regex::Regex = regex::Regex::new(
-        &format!(
-            "({})$",
-            JSON5_FILE_EXTENSIONS
-                .iter()
-                .map(|e| format!(r".*\.{}", e))
-                .collect::<Vec<String>>()
-                .join("|")
-        )
-    )
-    .unwrap();
+/// DEFAULT_JSON5_FILE_PATTERNS collects patterns for identifying JSON files.
+pub static DEFAULT_JSON5_FILE_PATTERNS: sync::LazyLock<regex::Regex> = sync::LazyLock::new(|| {
+    regex::Regex::new(&format!(
+        "({})$",
+        JSON5_FILE_EXTENSIONS
+            .iter()
+            .map(|e| format!(r".*\.{}", e))
+            .collect::<Vec<String>>()
+            .join("|")
+    ))
+    .unwrap()
+});
 
-    /// DEFAULT_EXCLUSION_FILE_PATTERNS collects patterns for directory or file paths to skip.
-    pub static ref DEFAULT_EXCLUSION_FILE_PATTERNS: regex::Regex = regex::Regex::new(
-        &[
-            // crit
-            ".crit",
+// COMMON_EXCLUSION_PATHS collects various and sundry development junk file paths.
+pub static COMMON_EXCLUSION_PATHS: sync::LazyLock<Vec<&str>> = sync::LazyLock::new(|| {
+    vec![
+        // crit
+        ".crit",
+        // Python
+        ".venv",
+        // C/C++
+        "build",
+        // Node.js
+        "node_modules",
+        "package-lock.json",
+        // .NET, Go, JVM, Rust
+        "target",
+        // Go, Rust
+        "vendor",
+    ]
+});
 
-            // Python
-            ".venv",
-
-            // C/C++
-            "build",
-
-            // Node.js
-            "node_modules",
-            "package-lock.json",
-
-            // .NET, Go, JVM, Rust
-            "target",
-
-            // Go, Rust
-            "vendor",
-        ].join("|")
-    )
-    .unwrap();
-}
+/// DEFAULT_EXCLUSION_FILE_PATTERN matches common junk file paths.
+pub static DEFAULT_EXCLUSION_FILE_PATTERN: sync::LazyLock<regex::Regex> =
+    sync::LazyLock::new(|| regex::Regex::new(&COMMON_EXCLUSION_PATHS.join("|")).unwrap());
 
 /// KirillError models bad computer states.
 #[derive(Debug)]
@@ -182,7 +173,7 @@ pub fn find_json_documents(
                 pth_abs.display()
             )))?;
 
-        if DEFAULT_EXCLUSION_FILE_PATTERNS.is_match(pth_abs_str) {
+        if DEFAULT_EXCLUSION_FILE_PATTERN.is_match(pth_abs_str) {
             continue;
         }
 

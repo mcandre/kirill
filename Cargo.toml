@@ -12,16 +12,10 @@ clean-path = "0.2.1"
 die = "0.2.0"
 getopts = "0.2.24"
 json-schema-validator-core = "1.0.0"
-lazy_static = "1.5.0"
 regex = "1.12.2"
 serde_json = "1.0.145"
 serde_json5 = "0.2.1"
-tinyrick = { version = "0.0.17", optional = true }
-tinyrick_extras = { version = "0.0.11", optional = true }
 walkdir = "2.5.0"
-
-[features]
-letmeout = ["tinyrick", "tinyrick_extras"]
 
 [lib]
 name = "kirill"
@@ -29,8 +23,3 @@ name = "kirill"
 [[bin]]
 name = "kirill"
 path = "src/kirill.rs"
-
-[[bin]]
-name = "tinyrick"
-path = "tinyrick.rs"
-required-features = ["letmeout"]
