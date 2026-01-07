@@ -47,7 +47,7 @@ clean: \
 	clean-ports
 
 clean-archive:
-	rm ".crit/bin/$(BANNER).tgz"
+	rm .crit/bin/$(BANNER).tgz
 
 clean-cargo:
 	cargo clean
@@ -79,7 +79,7 @@ lint: \
 	rustfmt
 
 port: crit
-	chandler -C .crit/bin -czf "$(BANNER).tgz" "$(BANNER)"
+	chandler -C .crit/bin -czf $(BANNER).tgz $(BANNER)
 
 publish:
 	cargo publish
