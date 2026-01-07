@@ -13,6 +13,9 @@
 	clippy \
 	crit \
 	doc \
+	docker-build \
+	docker-push \
+	docker-test \
 	install \
 	lint \
 	port \
@@ -27,7 +30,8 @@
 	clean-example \
 	clean-ports
 
-BANNER=kirill-0.0.6
+VERSION=0.0.6
+BANNER=kirill-$(VERSION)
 
 all: build
 
@@ -68,6 +72,15 @@ crit:
 
 doc:
 	cargo doc
+
+docker-build:
+	tuggy -t n4jm4/kirill:$(VERSION) --load
+
+docker-push:
+	tuggy -t n4jm4/kirill:$(VERSION) -a n4jm4/kirill --push
+
+docker-test:
+	tuggy -t n4jm4/kirill:test --load --push
 
 install:
 	cargo install --force --path .

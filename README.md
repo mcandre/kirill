@@ -32,6 +32,22 @@ $
 
 See `kirill -h` for more options.
 
+# CRATE
+
+https://crates.io/crates/kirill
+
+# API DOCUMENTATION
+
+https://docs.rs/kirill/latest/kirill/
+
+# DOCKER HUB
+
+https://hub.docker.com/r/n4jm4/kirill
+
+# DOWNLOAD
+
+https://github.com/mcandre/kirill/releases
+
 # LICENSE
 
 BSD-2-Clause
