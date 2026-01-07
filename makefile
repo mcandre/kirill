@@ -80,7 +80,8 @@ docker-push:
 	tuggy -t n4jm4/kirill:$(VERSION) -a n4jm4/kirill --push
 
 docker-test:
-	tuggy -t n4jm4/kirill:test --load --push
+	tuggy -t n4jm4/kirill:test --load
+	tuggy -t n4jm4/kirill:test --push
 
 install:
 	cargo install --force --path .
