@@ -40,13 +40,33 @@ https://crates.io/crates/kirill
 
 https://docs.rs/kirill/latest/kirill/
 
-# DOCKER HUB
+# INSTALL
 
-https://hub.docker.com/r/n4jm4/kirill
+We support several installation methods.
 
-# DOWNLOAD
+## Precompiled Binaries
 
 https://github.com/mcandre/kirill/releases
+
+1. Download release archive.
+2. Extract archive.
+3. Select executables for your target platform.
+4. Copy executabless to a convenient location, e.g. `$HOME/bin`.
+5. Ensure location is registered in `$PATH`.
+
+## Docker
+
+```sh
+docker pull n4jm4/kirill
+```
+
+## Compile from Source
+
+```sh
+cargo install --force --path .
+```
+
+For more details on developing kirill itself, see [DEVELOPMENT.md](DEVELOPMENT.md).
 
 # LICENSE
 
