@@ -80,10 +80,6 @@ BSD-2-Clause
 
 * [jq](https://jqlang.github.io/jq/) 1.6+
 
-# CONTRIBUTING
-
-For more information on developing kirill itself, see [DEVELOPMENT.md](DEVELOPMENT.md).
-
 # SEE ALSO
 
 * [sail](https://github.com/mcandre/sail) identifies C/C++ source code
