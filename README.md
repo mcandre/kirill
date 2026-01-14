@@ -1,6 +1,6 @@
 # kirill: JSON validator
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/n4jm4/kirill)](https://hub.docker.com/r/n4jm4/kirill)
+[![Docker Pulls](https://img.shields.io/docker/pulls/n4jm4/kirill)](https://hub.docker.com/r/n4jm4/kirill) [![Crates.io Downloads (latest version)](https://img.shields.io/crates/dv/kirill?label=crate%20downloads)](https://crates.io/crates/kirill)
 
 # ABOUT
 
