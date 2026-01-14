@@ -1,5 +1,7 @@
 # kirill: JSON validator
 
+[![Docker Pulls](https://img.shields.io/docker/pulls/n4jm4/kirill)](https://hub.docker.com/r/n4jm4/kirill)
+
 # ABOUT
 
 kirill scans projects large and small for JSON correctness:
