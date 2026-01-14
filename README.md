@@ -1,6 +1,6 @@
 # kirill: JSON validator
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/n4jm4/kirill)](https://hub.docker.com/r/n4jm4/kirill) [![Crates.io Downloads (latest version)](https://img.shields.io/crates/dv/kirill?label=crate%20downloads)](https://crates.io/crates/kirill) [![docs.rs](https://img.shields.io/docsrs/kirill)](https://docs.rs/kirill/latest/kirill/) [![license](https://img.shields.io/badge/license-BSD-3)](LICENSE.md)
+[![Docker Pulls](https://img.shields.io/docker/pulls/n4jm4/kirill)](https://hub.docker.com/r/n4jm4/kirill) [![Crates.io Downloads (latest version)](https://img.shields.io/crates/dv/kirill?label=crate%20downloads)](https://crates.io/crates/kirill) [![docs.rs](https://img.shields.io/docsrs/kirill)](https://docs.rs/kirill/latest/kirill/) [![Test](https://github.com/mcandre/kirill/actions/workflows/test.yml/badge.svg)](https://github.com/mcandre/kirill/actions/workflows/test.yml) [![license](https://img.shields.io/badge/license-BSD-3)](LICENSE.md)
 
 # ABOUT
 
