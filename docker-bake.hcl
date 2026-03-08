@@ -44,10 +44,7 @@ group "all" {
 target "kirill" {
     platforms = PLATFORMS
     tags = [
-        "n4jm4/kirill:${VERSION}-alpine-linux-3.23",
-        "n4jm4/kirill:${VERSION}-alpine-linux",
-        "n4jm4/kirill:alpine-linux-3.23",
-        "n4jm4/kirill:alpine-linux",
+        "n4jm4/kirill:${VERSION}",
         "n4jm4/kirill",
     ]
 }
