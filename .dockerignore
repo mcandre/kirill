@@ -1,7 +1,11 @@
 *.md
+*.mk
 .editorconfig
 .rubberstamp
-tuggy.toml
+Cargo.lock
+Cross.toml
+crit.toml
+docker-bake.hcl
 examples/
 .crit/
 .github/

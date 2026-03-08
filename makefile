@@ -8,7 +8,9 @@
 	clean \
 	clean-archive \
 	clean-cargo \
+	clean-crit \
 	clean-example \
+	clean-packages \
 	clean-ports \
 	clippy \
 	crit \
@@ -18,20 +20,24 @@
 	docker-test \
 	install \
 	lint \
+	package \
 	port \
 	publish \
 	rustfmt \
 	test \
-	uninstall
+	uninstall \
+	upload
 .IGNORE: \
 	clean \
 	clean-archive \
 	clean-cargo \
+	clean-crit \
 	clean-example \
+	clean-packages \
 	clean-ports
 
-VERSION=0.0.7
-BANNER=kirill-$(VERSION)
+VERSION!=cargo metadata --format-version 1 --no-deps | jq -r ".packages[0].version"
+BANNER=kirill
 
 all: build
 
@@ -47,6 +53,7 @@ cargo-check:
 clean: \
 	clean-archive \
 	clean-cargo \
+	clean-crit \
 	clean-example \
 	clean-ports
 
@@ -56,13 +63,19 @@ clean-archive:
 clean-cargo:
 	cargo clean
 
+clean-crit:
+	crit -c
+
 clean-example:
 	rm -f example/Cargo.lock
 	rm -rf example/target
 	rm -rf example/.crit
 
+clean-packages:
+	rm -rf .rockhopper
+
 clean-ports:
-	crit -c
+	rm -rf .crit/bin/kirill-ports
 
 clippy:
 	cargo clippy
@@ -74,14 +87,13 @@ doc:
 	cargo doc
 
 docker-build:
-	tuggy -t n4jm4/kirill:$(VERSION) --load
+	docker buildx bake all
 
 docker-push:
-	tuggy -t n4jm4/kirill:$(VERSION) -a n4jm4/kirill --push
+	docker buildx bake production --push
 
 docker-test:
-	tuggy -t n4jm4/kirill:test --load
-	tuggy -t n4jm4/kirill:test --push
+	docker buildx bake test --push
 
 install:
 	cargo install --force --path .
@@ -92,8 +104,11 @@ lint: \
 	doc \
 	rustfmt
 
-port: crit
-	chandler -C .crit/bin -czf $(BANNER).tgz $(BANNER)
+package:
+	rockhopper -r "version=$(VERSION)"
+
+port:
+	./port -C .crit/bin -a kirill $(BANNER)
 
 publish:
 	cargo publish
@@ -106,3 +121,6 @@ test:
 
 uninstall:
 	cargo uninstall crit
+
+upload:
+	./upload

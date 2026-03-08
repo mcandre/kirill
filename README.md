@@ -1,6 +1,6 @@
 # kirill: JSON validator
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/n4jm4/kirill)](https://hub.docker.com/r/n4jm4/kirill) [![Crates.io Downloads (recent)](https://img.shields.io/crates/dr/kirill?label=crate%20downloads)](https://crates.io/crates/kirill) [![GitHub Downloads](https://img.shields.io/github/downloads/mcandre/kirill/total?logo=github)](https://github.com/mcandre/kirill/releases) [![docs.rs](https://img.shields.io/docsrs/kirill)](https://docs.rs/kirill/latest/kirill/) [![Test](https://github.com/mcandre/kirill/actions/workflows/test.yml/badge.svg)](https://github.com/mcandre/kirill/actions/workflows/test.yml) [![license](https://img.shields.io/badge/license-BSD-3)](LICENSE.md)
+[![CloudFlare R2 install media downloads](https://img.shields.io/badge/Cloudflare-F28220?style=for-the-badge&logo=Cloudflare&logoColor=white&style=flat)](#download) [![Docker Pulls](https://img.shields.io/docker/pulls/n4jm4/kirill)](https://hub.docker.com/r/n4jm4/kirill) [![Crates.io Downloads (recent)](https://img.shields.io/crates/dr/kirill?label=crate%20downloads)](https://crates.io/crates/kirill) [![GitHub Downloads](https://img.shields.io/github/downloads/mcandre/kirill/total?logo=github)](https://github.com/mcandre/kirill/releases) [![docs.rs](https://img.shields.io/docsrs/kirill)](https://docs.rs/kirill/latest/kirill/) [![Test](https://github.com/mcandre/kirill/actions/workflows/test.yml/badge.svg)](https://github.com/mcandre/kirill/actions/workflows/test.yml) [![license](https://img.shields.io/badge/license-BSD-0)](LICENSE.md)
 
 # ABOUT
 
@@ -34,16 +34,67 @@ $
 
 See `kirill -h` for more options.
 
-# INSTALLATION
+# DOWNLOAD
 
-See [INSTALL.md](INSTALL.md).
+<table>
+  <thead>
+    <tr>
+      <th>Host</th>
+      <th colspan=2>Package</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Alpine Linux</td>
+      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.7/alpine-linux/kirill-0.0.7-r1.x86_64.apk">Intel</a></td>
+      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.7/alpine-linux/kirill-0.0.7-r1.aarch64.apk">ARM</a></td>
+    </tr>
+    <tr>
+      <td>Fedora</td>
+      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.7/fedora/kirill-0.0.7-1.x86_64.rpm">Intel</a></td>
+      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.7/fedora/kirill-0.0.7-1.aarch64.rpm">ARM</a></td>
+    </tr>
+    <tr>
+      <td>FreeBSD</td>
+      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.7/freebsd-amd64/kirill-0.0.7_1.pkg">Intel</a></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>macOS</td>
+      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.7/macos/kirill-x86_64-0.0.7-1.pkg">Intel</a></td>
+      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.7/macos/kirill-arm64-0.0.7-1.pkg">ARM</a></td>
+    </tr>
+    <tr>
+      <td>NetBSD</td>
+      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.7/netbsd-x86_64/kirill-0.0.7nb1.tgz">Intel</a></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Ubuntu</td>
+      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.7/ubuntu/kirill_0.0.7-1_amd64.deb">Intel</a></td>
+      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.7/ubuntu/kirill_0.0.7-1_arm64.deb">ARM</a></td>
+    </tr>
+    <tr>
+      <td>Windows</td>
+      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.7/windows/kirill-0.0.7.1-x64.msi">Intel</a></td>
+      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.7/windows/kirill-0.0.7.1-arm64.msi">ARM</a></td>
+    </tr>
+  </tbody>
+</table>
 
-## Recommended
+# System Requirements
 
-* [jq](https://jqlang.github.io/jq/) 1.6+
+## Bitness
 
-# SEE ALSO
+64
 
-* [sail](https://github.com/mcandre/sail) identifies C/C++ source code
-* [stank](https://github.com/mcandre/stank) identifies shell scripts
-* [todolint](https://github.com/mcandre/todolint) identifies bugs by code comments
+For more host platforms and installation methods, see our [install guide](INSTALL.md).
+
+# RESOURCES
+
+Prior art, personal plugs, and tools for managing data.
+
+* [jq](https://jqlang.github.io/jq/) styles and transforms JSON documents
+* [mcandre/sail](https://github.com/mcandre/sail) identifies C/C++ source code
+* [mcandre/stank](https://github.com/mcandre/stank) identifies shell scripts
+* [mcandre/todolint](https://github.com/mcandre/todolint) identifies bugs by code comments
