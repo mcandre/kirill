@@ -46,38 +46,38 @@ See `kirill -h` for more options.
   <tbody>
     <tr>
       <td>Alpine Linux</td>
-      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.7/alpine-linux/kirill-0.0.7-r1.x86_64.apk">Intel</a></td>
-      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.7/alpine-linux/kirill-0.0.7-r1.aarch64.apk">ARM</a></td>
+      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.8/alpine-linux/kirill-0.0.8-r1.x86_64.apk">Intel</a></td>
+      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.8/alpine-linux/kirill-0.0.8-r1.aarch64.apk">ARM</a></td>
     </tr>
     <tr>
       <td>Fedora</td>
-      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.7/fedora/kirill-0.0.7-1.x86_64.rpm">Intel</a></td>
-      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.7/fedora/kirill-0.0.7-1.aarch64.rpm">ARM</a></td>
+      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.8/fedora/kirill-0.0.8-1.x86_64.rpm">Intel</a></td>
+      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.8/fedora/kirill-0.0.8-1.aarch64.rpm">ARM</a></td>
     </tr>
     <tr>
       <td>FreeBSD</td>
-      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.7/freebsd-amd64/kirill-0.0.7_1.pkg">Intel</a></td>
+      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.8/freebsd-amd64/kirill-0.0.8_1.pkg">Intel</a></td>
       <td></td>
     </tr>
     <tr>
       <td>macOS</td>
-      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.7/macos/kirill-x86_64-0.0.7-1.pkg">Intel</a></td>
-      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.7/macos/kirill-arm64-0.0.7-1.pkg">ARM</a></td>
+      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.8/macos/kirill-x86_64-0.0.8-1.pkg">Intel</a></td>
+      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.8/macos/kirill-arm64-0.0.8-1.pkg">ARM</a></td>
     </tr>
     <tr>
       <td>NetBSD</td>
-      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.7/netbsd-x86_64/kirill-0.0.7nb1.tgz">Intel</a></td>
+      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.8/netbsd-x86_64/kirill-0.0.8nb1.tgz">Intel</a></td>
       <td></td>
     </tr>
     <tr>
       <td>Ubuntu</td>
-      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.7/ubuntu/kirill_0.0.7-1_amd64.deb">Intel</a></td>
-      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.7/ubuntu/kirill_0.0.7-1_arm64.deb">ARM</a></td>
+      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.8/ubuntu/kirill_0.0.8-1_amd64.deb">Intel</a></td>
+      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.8/ubuntu/kirill_0.0.8-1_arm64.deb">ARM</a></td>
     </tr>
     <tr>
       <td>Windows</td>
-      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.7/windows/kirill-0.0.7.1-x64.msi">Intel</a></td>
-      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.7/windows/kirill-0.0.7.1-arm64.msi">ARM</a></td>
+      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.8/windows/kirill-0.0.8.1-x64.msi">Intel</a></td>
+      <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.8/windows/kirill-0.0.8.1-arm64.msi">ARM</a></td>
     </tr>
   </tbody>
 </table>
