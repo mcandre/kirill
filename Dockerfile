@@ -1,7 +1,7 @@
 FROM alpine:3.23 AS build
 ENV PATH=$PATH:/root/.cargo/bin
 RUN apk add -U \
-        clang \
+        clang21 \
         curl \
         musl-dev && \
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | \
