@@ -2,7 +2,6 @@
 *.mk
 .editorconfig
 .rubberstamp
-Cargo.lock
 Cross.toml
 crit.toml
 docker-bake.hcl
