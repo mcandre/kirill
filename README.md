@@ -82,7 +82,7 @@ See `kirill -h` for more options.
   </tbody>
 </table>
 
-# System Requirements
+# SYSTEM REQUIREMENTS
 
 ## Bitness
 
