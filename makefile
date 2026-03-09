@@ -49,7 +49,6 @@ cargo-check:
 	cargo check
 
 clean: \
-	clean-archive \
 	clean-cargo \
 	clean-crit \
 	clean-example \
