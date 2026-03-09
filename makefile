@@ -115,7 +115,7 @@ test:
 	cargo test
 
 uninstall:
-	cargo uninstall crit
+	cargo uninstall kirill
 
 upload:
 	./upload
