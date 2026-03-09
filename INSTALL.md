@@ -96,7 +96,7 @@ Remove the application executables from the selected directory.
 
 ### Operating Systems
 
-* FreeBSD 13+ (Intel)
+* FreeBSD 13 (Intel)
 * Illumos (Intel)
 * Linux (ARM, Intel)
 * macOS 26 Tahoe+ (ARM, Intel)
