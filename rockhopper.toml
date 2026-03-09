@@ -35,7 +35,7 @@ dest."usr/bin" = ".crit/bin/kirill/aarch64-unknown-linux-musl"
 
 [[pkg]]
 image = "n4jm4/rockhopper:0.0.21-freebsd"
-rocklet.origin = "local/rockhopper"
+rocklet.origin = "local/kirill"
 rocklet.oci_arch = "linux/amd64"
 rocklet.os_arch = "freebsd:*:amd64"
 dest."usr/local/bin" = ".crit/bin/kirill/x86_64-unknown-freebsd"
