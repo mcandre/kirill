@@ -52,6 +52,6 @@ target "kirill" {
 target "test-kirill" {
     platforms = PLATFORMS
     tags = [
-        "n4jm4/rockhopper:test-kirill",
+        "n4jm4/kirill:test",
     ]
 }
