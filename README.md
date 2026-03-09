@@ -45,37 +45,37 @@ See `kirill -h` for more options.
   </thead>
   <tbody>
     <tr>
-      <td>Alpine Linux</td>
+      <td>Alpine Linux 3.23+</td>
       <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.12/alpine-linux/kirill-0.0.12-r1.x86_64.apk">Intel</a></td>
       <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.12/alpine-linux/kirill-0.0.12-r1.aarch64.apk">ARM</a></td>
     </tr>
     <tr>
-      <td>Fedora</td>
+      <td>Fedora 43+</td>
       <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.12/fedora/kirill-0.0.12-1.x86_64.rpm">Intel</a></td>
       <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.12/fedora/kirill-0.0.12-1.aarch64.rpm">ARM</a></td>
     </tr>
     <tr>
-      <td>FreeBSD</td>
+      <td>FreeBSD 13</td>
       <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.12/freebsd-amd64/kirill-0.0.12_1.pkg">Intel</a></td>
       <td></td>
     </tr>
     <tr>
-      <td>macOS</td>
+      <td>macOS 26 Tahoe+</td>
       <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.12/macos/kirill-x86_64-0.0.12-1.pkg">Intel</a></td>
       <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.12/macos/kirill-arm64-0.0.12-1.pkg">ARM</a></td>
     </tr>
     <tr>
-      <td>NetBSD</td>
+      <td>NetBSD 10.1</td>
       <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.12/netbsd-x86_64/kirill-0.0.12nb1.tgz">Intel</a></td>
       <td></td>
     </tr>
     <tr>
-      <td>Ubuntu</td>
+      <td>Ubuntu 24.04 Noble+</td>
       <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.12/ubuntu/kirill_0.0.12-1_amd64.deb">Intel</a></td>
       <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.12/ubuntu/kirill_0.0.12-1_arm64.deb">ARM</a></td>
     </tr>
     <tr>
-      <td>Windows</td>
+      <td>Windows 11+</td>
       <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.12/windows/kirill-0.0.12.1-x64.msi">Intel</a></td>
       <td><a href="https://pub-65957f5e8c044d56838ccc7a26b4b179.r2.dev/kirill-0.0.12/windows/kirill-0.0.12.1-arm64.msi">ARM</a></td>
     </tr>
