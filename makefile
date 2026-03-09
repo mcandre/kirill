@@ -81,13 +81,13 @@ doc:
 	cargo doc
 
 docker-build:
-	docker buildx bake all
+	docker buildx bake all --var "VERSION=$(VERSION)"
 
 docker-push:
-	docker buildx bake production --push
+	docker buildx bake production --var "VERSION=$(VERSION)" --push
 
 docker-test:
-	docker buildx bake test --push
+	docker buildx bake test --var "VERSION=$(VERSION)" --push
 
 install:
 	cargo install --force --path .
