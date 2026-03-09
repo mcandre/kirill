@@ -73,6 +73,12 @@ make port
 make package
 ```
 
+# UPLOAD BINARIES
+
+```sh
+make upload
+```
+
 # BUILD IMAGES
 
 ```sh
