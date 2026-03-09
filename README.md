@@ -39,7 +39,7 @@ See `kirill -h` for more options.
 <table>
   <thead>
     <tr>
-      <th>Host</th>
+      <th>OS</th>
       <th colspan=2>Package</th>
     </tr>
   </thead>
