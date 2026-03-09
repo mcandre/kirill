@@ -4,6 +4,7 @@
 .rubberstamp
 Cross.toml
 crit.toml
+rockhopper.toml
 docker-bake.hcl
 examples/
 .crit/
