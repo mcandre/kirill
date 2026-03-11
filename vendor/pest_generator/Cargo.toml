@@ -11,9 +11,9 @@
 
 [package]
 edition = "2021"
-rust-version = "1.81"
+rust-version = "1.83"
 name = "pest_generator"
-version = "2.8.3"
+version = "2.8.6"
 authors = ["Dragoș Tiselice <dragostiselice@gmail.com>"]
 build = false
 autolib = false
@@ -45,11 +45,11 @@ name = "pest_generator"
 path = "src/lib.rs"
 
 [dependencies.pest]
-version = "2.8.3"
+version = "2.8.6"
 default-features = false
 
 [dependencies.pest_meta]
-version = "2.8.3"
+version = "2.8.6"
 
 [dependencies.proc-macro2]
 version = "1.0"

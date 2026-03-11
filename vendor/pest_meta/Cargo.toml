@@ -11,9 +11,9 @@
 
 [package]
 edition = "2021"
-rust-version = "1.81"
+rust-version = "1.83"
 name = "pest_meta"
-version = "2.8.3"
+version = "2.8.6"
 authors = ["Dragoș Tiselice <dragostiselice@gmail.com>"]
 build = false
 exclude = ["src/grammar.pest"]
@@ -53,7 +53,7 @@ name = "pest_meta"
 path = "src/lib.rs"
 
 [dependencies.pest]
-version = "2.8.3"
+version = "2.8.6"
 
 [build-dependencies.cargo]
 version = "0.81.0"

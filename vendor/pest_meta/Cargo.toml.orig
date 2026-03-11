@@ -1,7 +1,7 @@
 [package]
 name = "pest_meta"
 description = "pest meta language parser and validator"
-version = "2.8.3"
+version = "2.8.6"
 edition = "2021"
 authors = ["Dragoș Tiselice <dragostiselice@gmail.com>"]
 homepage = "https://pest.rs/"
@@ -19,10 +19,10 @@ include = [
     "_README.md",
     "LICENSE-*",
 ]
-rust-version = "1.81"
+rust-version = "1.83"
 
 [dependencies]
-pest = { path = "../pest", version = "2.8.3" }
+pest = { path = "../pest", version = "2.8.6" }
 
 [build-dependencies]
 sha2 = { version = "0.10", default-features = false }

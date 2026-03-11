@@ -6,9 +6,10 @@
 use alloc::boxed::Box;
 use alloc::string::String;
 use alloc::vec::Vec;
+use core::panic::AssertUnwindSafe;
 use core::{mem::MaybeUninit, ptr::NonNull};
 
-use crate::{Clamped, JsCast, JsError, JsValue};
+use crate::{Clamped, JsError, JsValue, __rt::marker::ErasableGeneric};
 use cfg_if::cfg_if;
 
 pub use wasm_bindgen_shared::tys::*;
@@ -129,7 +130,7 @@ cfg_if! {
     }
 }
 
-impl<T: JsCast + WasmDescribe> WasmDescribeVector for T {
+impl<T: ErasableGeneric<Repr = JsValue> + WasmDescribe> WasmDescribeVector for T {
     #[cfg_attr(wasm_bindgen_unstable_test_coverage, coverage(off))]
     fn describe_vector() {
         inform(VECTOR);
@@ -196,5 +197,14 @@ impl WasmDescribe for JsError {
     #[cfg_attr(wasm_bindgen_unstable_test_coverage, coverage(off))]
     fn describe() {
         JsValue::describe();
+    }
+}
+
+impl<T> WasmDescribe for AssertUnwindSafe<T>
+where
+    T: WasmDescribe,
+{
+    fn describe() {
+        T::describe();
     }
 }

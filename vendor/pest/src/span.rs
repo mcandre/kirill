@@ -270,12 +270,12 @@ impl<'i> Span<'i> {
     }
 }
 
-impl<'i> fmt::Debug for Span<'i> {
+impl fmt::Debug for Span<'_> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let range = self.start..self.end;
         f.debug_struct("Span")
             .field("str", &self.as_str())
-            .field("start", &self.start)
-            .field("end", &self.end)
+            .field("range", &range)
             .finish()
     }
 }
@@ -286,9 +286,9 @@ impl<'i> PartialEq for Span<'i> {
     }
 }
 
-impl<'i> Eq for Span<'i> {}
+impl Eq for Span<'_> {}
 
-impl<'i> Hash for Span<'i> {
+impl Hash for Span<'_> {
     fn hash<H: Hasher>(&self, state: &mut H) {
         (self.input as *const str).hash(state);
         self.start.hash(state);

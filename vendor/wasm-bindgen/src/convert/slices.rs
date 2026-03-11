@@ -5,14 +5,15 @@ use core::mem::{self, MaybeUninit};
 use core::ops::{Deref, DerefMut};
 use core::str;
 
-use crate::convert::{js_value_vector_from_abi, js_value_vector_into_abi};
+use crate::__rt::marker::ErasableGeneric;
+use crate::__wbindgen_copy_to_typed_array;
 use crate::convert::{
-    FromWasmAbi, IntoWasmAbi, LongRefFromWasmAbi, OptionFromWasmAbi, OptionIntoWasmAbi,
-    RefFromWasmAbi, RefMutFromWasmAbi, VectorFromWasmAbi, VectorIntoWasmAbi, WasmAbi,
+    js_value_vector_from_abi, js_value_vector_into_abi, FromWasmAbi, IntoWasmAbi,
+    LongRefFromWasmAbi, OptionFromWasmAbi, OptionIntoWasmAbi, RefFromWasmAbi, RefMutFromWasmAbi,
+    UpcastFrom, VectorFromWasmAbi, VectorIntoWasmAbi, WasmAbi,
 };
 use crate::describe::*;
 use crate::JsValue;
-use crate::{JsCast, __wbindgen_copy_to_typed_array};
 
 use cfg_if::cfg_if;
 
@@ -25,6 +26,7 @@ use cfg_if::cfg_if;
 // convenient to directly write `WasmSlice` in some of the manually-written FFI
 // functions in `lib.rs` rather than `WasmRet<WasmSlice>`.
 #[repr(C)]
+#[derive(Clone, Copy)]
 pub struct WasmSlice {
     pub ptr: u32,
     pub len: u32,
@@ -396,6 +398,24 @@ impl LongRefFromWasmAbi for str {
     }
 }
 
+unsafe impl ErasableGeneric for &str {
+    type Repr = &'static str;
+}
+
+unsafe impl<T: ErasableGeneric> ErasableGeneric for Box<[T]> {
+    type Repr = Box<[T::Repr]>;
+}
+
+impl UpcastFrom<&str> for &str {}
+
+impl<T, Target> UpcastFrom<Box<[T]>> for Box<[Target]> where Target: UpcastFrom<T> {}
+
+unsafe impl<T: ErasableGeneric> ErasableGeneric for Vec<T> {
+    type Repr = Vec<T::Repr>;
+}
+
+impl<T, Target> UpcastFrom<Vec<T>> for Vec<Target> where Target: UpcastFrom<T> {}
+
 impl<T: VectorIntoWasmAbi> IntoWasmAbi for Box<[T]> {
     type Abi = <T as VectorIntoWasmAbi>::Abi;
 
@@ -430,7 +450,7 @@ where
     }
 }
 
-impl<T: JsCast + WasmDescribe> VectorFromWasmAbi for T {
+impl<T: ErasableGeneric<Repr = JsValue> + WasmDescribe> VectorFromWasmAbi for T {
     type Abi = WasmSlice;
 
     #[inline]
@@ -441,7 +461,7 @@ impl<T: JsCast + WasmDescribe> VectorFromWasmAbi for T {
     }
 }
 
-impl<T: JsCast + WasmDescribe> VectorIntoWasmAbi for T {
+impl<T: ErasableGeneric<Repr = JsValue> + WasmDescribe> VectorIntoWasmAbi for T {
     type Abi = WasmSlice;
 
     #[inline]
@@ -453,5 +473,33 @@ impl<T: JsCast + WasmDescribe> VectorIntoWasmAbi for T {
             ptr: ptr.into_abi(),
             len: len as u32,
         }
+    }
+}
+
+// JsValue-like slice support (Rust-to-JS only)
+// JsValue-like are repr(transparent) over u32, so &[JsValue] is a contiguous array of heap indices
+
+unsafe impl<T: ErasableGeneric> ErasableGeneric for &[T] {
+    type Repr = &'static [T::Repr];
+}
+
+impl<'a, T, Target> UpcastFrom<&'a [T]> for &'a [Target] where Target: UpcastFrom<T> {}
+
+impl<T: ErasableGeneric<Repr = JsValue> + WasmDescribe> IntoWasmAbi for &[T] {
+    type Abi = WasmSlice;
+
+    #[inline]
+    fn into_abi(self) -> WasmSlice {
+        WasmSlice {
+            ptr: self.as_ptr() as u32,
+            len: self.len() as u32,
+        }
+    }
+}
+
+impl<T: ErasableGeneric<Repr = JsValue> + WasmDescribe> OptionIntoWasmAbi for &[T] {
+    #[inline]
+    fn none() -> WasmSlice {
+        null_slice()
     }
 }
