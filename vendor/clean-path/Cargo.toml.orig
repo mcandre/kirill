@@ -1,0 +1,20 @@
+[package]
+name = "clean-path"
+description = "A safe fork of the `path-clean` crate"
+version = "0.2.1"
+authors = ["Frank de Jong <f.jin@protonmail.com>"]
+repository = "https://gitlab.com/foo-jin/clean-path"
+documentation = "https://docs.rs/clean-path"
+readme = "README.md"
+license = "MIT OR Apache-2.0"
+keywords = ["path", "clean"]
+exclude = [".github/"]
+
+[dependencies]
+
+[dev-dependencies]
+criterion = "0.2"
+
+[[bench]]
+name = "clean_benchmark"
+harness = false
