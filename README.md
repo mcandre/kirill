@@ -94,7 +94,5 @@ For more host platforms and installation methods, see our [install guide](INSTAL
 
 Prior art, personal plugs, and tools for managing data.
 
-* [jq](https://jqlang.github.io/jq/) styles and transforms JSON documents
-* [mcandre/sail](https://github.com/mcandre/sail) identifies C/C++ source code
-* [mcandre/stank](https://github.com/mcandre/stank) identifies shell scripts
-* [mcandre/todolint](https://github.com/mcandre/todolint) identifies bugs by code comments
+* [jq](https://jqlang.github.io/jq/) - styles and transforms JSON documents
+* [mcandre/linters](https://github.com/mcandre/linters) - a collection of file analyzers
