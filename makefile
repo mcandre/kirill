@@ -7,87 +7,50 @@
 	cargo-check \
 	clean \
 	clean-cargo \
-	clean-crit \
 	clean-example \
-	clean-packages \
-	clean-ports \
 	clippy \
 	crit \
 	doc \
-	docker-build \
-	docker-push \
-	docker-test \
 	install \
 	lint \
-	package \
-	port \
 	publish \
 	rustfmt \
 	test \
-	uninstall \
-	upload
+	uninstall
 .IGNORE: \
 	clean \
 	clean-cargo \
-	clean-crit \
-	clean-example \
-	clean-packages \
-	clean-ports
-
-VERSION!=cargo metadata --format-version 1 --no-deps | jq -r ".packages[0].version"
-BANNER=kirill
+	clean-example
 
 all: build
 
 audit:
 	cargo audit
 
-build: lint test
+build:
 	cargo build --release
+	./install-dest
 
 cargo-check:
 	cargo check
 
 clean: \
 	clean-cargo \
-	clean-crit \
-	clean-example \
-	clean-ports
+	clean-example
 
 clean-cargo:
 	cargo clean
-
-clean-crit:
-	crit -c
 
 clean-example:
 	rm -f example/Cargo.lock
 	rm -rf example/target
 	rm -rf example/.crit
 
-clean-packages:
-	rockhopper -c
-
-clean-ports:
-	rm -rf .crit/bin/kirill-ports
-
 clippy:
 	cargo clippy
 
-crit:
-	crit -b $(BANNER)
-
 doc:
 	cargo doc
-
-docker-build:
-	docker buildx bake all --var "VERSION=$(VERSION)"
-
-docker-push:
-	docker buildx bake production --var "VERSION=$(VERSION)" --push
-
-docker-test:
-	docker buildx bake test --var "VERSION=$(VERSION)" --push
 
 install:
 	cargo install --force --path .
@@ -97,12 +60,6 @@ lint: \
 	clippy \
 	doc \
 	rustfmt
-
-package:
-	rockhopper -r "version=$(VERSION)"
-
-port:
-	./port -C .crit/bin -a kirill $(BANNER)
 
 publish:
 	cargo publish
@@ -115,6 +72,3 @@ test:
 
 uninstall:
 	cargo uninstall kirill
-
-upload:
-	./upload
