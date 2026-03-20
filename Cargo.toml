@@ -7,7 +7,13 @@ authors = ["Andrew Pennebaker <n4jm4@pm.me>"]
 license = "0BSD"
 repository = "https://github.com/mcandre/kirill"
 exclude = [
+    "*.mk",
+    ".editorconfig",
+    ".github",
+    ".rubberstamp",
+    ".tool-versions",
     "examples",
+    "makefile",
 ]
 
 [dependencies]

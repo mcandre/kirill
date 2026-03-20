@@ -32,8 +32,6 @@ error: books.json5: expected value at line 9 column 9
 %
 ```
 
-For feature details, see our [usage guide](USAGE.md).
-
 # DOWNLOAD
 
 ```sh
@@ -48,7 +46,9 @@ cargo install kirill
 
 Register `~/.cargo/bin` to `PATH` environment variable.
 
-For details on building from source, see our [development guide](DEVELOPMENT.md).
+For details on tuning kirill, see [CONFIGURATION](CONFIGURATION.md).
+
+For details on building from source, see [DEVELOPMENT](DEVELOPMENT.md).
 
 # RESOURCES
 
