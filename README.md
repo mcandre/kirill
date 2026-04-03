@@ -56,3 +56,5 @@ Prior art, personal plugs, and tools for managing data.
 
 * [jq](https://jqlang.github.io/jq/) - styles and transforms JSON documents
 * [mcandre/linters](https://github.com/mcandre/linters) - a collection of file analyzers
+
+✉️
