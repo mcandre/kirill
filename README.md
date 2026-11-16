@@ -1,6 +1,6 @@
 # kirill: JSON validator
 
-[![Crate Downloads](https://badgen.net/crates/d/kirill?label=crate+downloads)](https://crates.io/crates/kirill) [![API Docs](https://badgen.net/static/docs/API/3eca2a?icon=docs.rs)](https://docs.rs/kirill/latest/kirill/) [![CI/CD](https://badgen.net/github/checks/mcandre/kirill?icon=github)](https://github.com/mcandre/kirill/actions) [![License](https://badgen.net/static/license/BSD/ab2b29)](LICENSE.md)
+[![Crate Downloads](https://badgen.net/crates/d/kirill?label=crate+downloads&icon=rust)](https://crates.io/crates/kirill) [![API Docs](https://badgen.net/static/docs/API/3eca2a?icon=docs.rs)](https://docs.rs/kirill/latest/kirill/) [![CI/CD](https://badgen.net/github/checks/mcandre/kirill?icon=github)](https://github.com/mcandre/kirill/actions) [![License](https://badgen.net/static/license/BSD/ab2b29?icon=freebsd)](LICENSE.md)
 
 # ABOUT
 
